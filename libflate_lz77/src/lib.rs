@@ -2,7 +2,7 @@
 //!
 //! LZ77 is a compression algorithm used in [DEFLATE](https://tools.ietf.org/html/rfc1951).
 #![warn(missing_docs)]
-#![cfg_attr(no_std, feature = "no_std")]
+#![cfg_attr(feature = "no_std", no_std)]
 
 #[cfg(feature = "no_std")]
 extern crate alloc;
@@ -240,7 +240,7 @@ impl Lz77Decoder {
 
 impl io::Read for Lz77Decoder {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        let copy_size = std::cmp::min(buf.len(), self.buffer.len() - self.offset);
+        let copy_size = core::cmp::min(buf.len(), self.buffer.len() - self.offset);
         buf[..copy_size].copy_from_slice(&self.buffer[self.offset..][..copy_size]);
         self.offset += copy_size;
         self.truncate_old_buffer();

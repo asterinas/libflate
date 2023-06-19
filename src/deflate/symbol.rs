@@ -3,6 +3,10 @@ use crate::huffman;
 use crate::huffman::Builder;
 use crate::lz77;
 #[cfg(feature = "no_std")]
+use alloc::boxed::Box;
+#[cfg(feature = "no_std")]
+use alloc::vec::Vec;
+#[cfg(feature = "no_std")]
 use core::{cmp, iter, ops::Range};
 #[cfg(feature = "no_std")]
 use core2::io;

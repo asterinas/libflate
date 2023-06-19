@@ -1,6 +1,8 @@
 //! Length-limited Huffman Codes.
 use crate::bit;
 #[cfg(feature = "no_std")]
+use alloc::vec;
+#[cfg(feature = "no_std")]
 use alloc::vec::Vec;
 #[cfg(feature = "no_std")]
 use core::cmp;
@@ -128,7 +130,7 @@ impl Builder for DecoderBuilder {
     fn finish(self) -> Self::Instance {
         Decoder {
             table: self.table,
-            safely_peek_bitwidth: std::cmp::min(
+            safely_peek_bitwidth: core::cmp::min(
                 self.max_bitwidth,
                 self.safely_peek_bitwidth.unwrap_or(1),
             ),
@@ -261,7 +263,10 @@ impl Encoder {
 
 #[allow(dead_code)]
 mod ordinary_huffman_codes {
-    use std::cmp;
+    #[cfg(feature = "no_std")]
+    use alloc::collections::BinaryHeap;
+    use core::cmp;
+    #[cfg(not(feature = "no_std"))]
     use std::collections::BinaryHeap;
 
     pub fn calc_optimal_max_bitwidth(frequencies: &[usize]) -> u8 {
@@ -280,7 +285,11 @@ mod ordinary_huffman_codes {
     }
 }
 mod length_limited_huffman_codes {
-    use std::mem;
+    #[cfg(feature = "no_std")]
+    use alloc::vec;
+    #[cfg(feature = "no_std")]
+    use alloc::vec::Vec;
+    use core::mem;
 
     #[derive(Debug, Clone)]
     struct Node {

@@ -4,6 +4,8 @@ use crate::bit;
 use crate::finish::{Complete, Finish};
 use crate::lz77;
 #[cfg(feature = "no_std")]
+use alloc::vec::Vec;
+#[cfg(feature = "no_std")]
 use core::cmp;
 #[cfg(feature = "no_std")]
 use core2::io;

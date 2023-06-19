@@ -2,7 +2,7 @@
 
 #![forbid(unsafe_code)]
 #![warn(missing_docs)]
-#![cfg_attr(no_std, feature = "no_std")]
+#![cfg_attr(feature = "no_std", no_std)]
 
 pub use finish::Finish;
 
